@@ -29,6 +29,28 @@
 		reg = <0x80000000 0x20000000>;
 	};
 
+	virtual_intc: virtual_intc_100ask {
+		compatible = "100ask,virtual_intc";
+		/* this is a interrupt controller */
+		interrupt-controller;
+		/* sub interrupt node needs to provide 2 cells */
+		#interrupt-cells = <2>;
+
+		/* this node's parent interrupt controller is intc */
+		interrupt-parent = <&intc>;
+		/* this intrrupt controoler will send irq to intc */
+		interrupts = <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>;
+	};
+
+	gpio_keys_100ask {
+        compatible = "100ask,gpio_key";
+		interrupt-parent = <&virtual_intc>;		// which interrupt use
+		interrupts = <0 IRQ_TYPE_LEVEL_HIGH>,	// which interrupt line
+					 <1 IRQ_TYPE_LEVEL_HIGH>,
+				 	 <2 IRQ_TYPE_LEVEL_HIGH>,
+					 <3 IRQ_TYPE_LEVEL_HIGH>;
+    };
+
 	reserved-memory {
 		#address-cells = <1>;
 		#size-cells = <1>;
