@@ -31,15 +31,11 @@
 
 	virtual_intc: virtual_intc_100ask {
 		compatible = "100ask,virtual_intc";
-		/* this is a interrupt controller */
 		interrupt-controller;
-		/* sub interrupt node needs to provide 2 cells */
 		#interrupt-cells = <2>;
 
-		/* this node's parent interrupt controller is intc */
 		interrupt-parent = <&intc>;
-		/* this intrrupt controoler will send irq to intc */
-		interrupts = <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>;
+		upper_hwirq_base = <122>;
 	};
 
 	gpio_keys_100ask {
